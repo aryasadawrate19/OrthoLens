@@ -74,7 +74,7 @@ def validate(model, loader, criterion, epoch):
 
     avg_loss = running_loss / len(loader)
     accuracy = correct / total
-    print(f"✅ Validation [Epoch {epoch}] Loss: {avg_loss:.4f}, Study-level Accuracy: {accuracy:.4f}")
+    print(f"Validation [Epoch {epoch}] Loss: {avg_loss:.4f}, Study-level Accuracy: {accuracy:.4f}")
     return avg_loss, accuracy
 
 
@@ -84,7 +84,7 @@ def validate(model, loader, criterion, epoch):
 def main():
     print(f"Using device: {DEVICE}")
 
-    print("🔄 Loading data...")
+    print("Loading data...")
     train_loader = create_dataloader(
         "MURA-v1.1/train_image_paths.csv",
         "MURA-v1.1/train_labeled_studies.csv",
@@ -99,13 +99,13 @@ def main():
         shuffle=False,
         num_workers=NUM_WORKERS
     )
-    print(f"✅ Data loaded: Train batches={len(train_loader)}, Val batches={len(val_loader)}")
+    print(f"Data loaded: Train batches={len(train_loader)}, Val batches={len(val_loader)}")
 
-    print("🔄 Initializing model...")
+    print("Initializing model...")
     model = get_model().to(DEVICE)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=LR)
-    print("✅ Model ready.")
+    print("Model ready.")
 
     best_val_acc = 0.0
 
@@ -113,23 +113,23 @@ def main():
         print(f"\n===== Epoch {epoch}/{EPOCHS} =====")
 
         train_loss = train_one_epoch(model, train_loader, criterion, optimizer, epoch)
-        print(f"📊 Avg Train Loss: {train_loss:.4f}")
+        print(f"Avg Train Loss: {train_loss:.4f}")
 
         val_loss, val_acc = validate(model, val_loader, criterion, epoch)
 
         # Save checkpoint
         model_path = OUTPUT_DIR / f"model_epoch{epoch}.pth"
         torch.save(model.state_dict(), model_path)
-        print(f"💾 Saved checkpoint: {model_path}")
+        print(f"Saved checkpoint: {model_path}")
 
         # Save best model
         if val_acc > best_val_acc:
             best_val_acc = val_acc
             best_path = OUTPUT_DIR / "best_model.pth"
             torch.save(model.state_dict(), best_path)
-            print(f"🌟 New best model saved (acc={best_val_acc:.4f})")
+            print(f"New best model saved (acc={best_val_acc:.4f})")
 
-    print("🎉 Training complete!")
+    print("Training complete!")
 
 
 if __name__ == "__main__":
