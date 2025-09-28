@@ -28,6 +28,13 @@ cd OrthoLens
 ```
 pip install -r requirements.txt
 ```
+## Dataset
+
+This project uses the **MURA dataset** for training and evaluation.
+
+- **MURA (Musculoskeletal Radiographs)**: A large dataset of musculoskeletal X-ray images from Stanford ML Group.
+
+- **Credit**: [Stanford ML Group – MURA Dataset](https://stanfordmlgroup.github.io/competitions/mura/)
 
   
   
@@ -41,3 +48,4 @@ Technologies used in the project:
 *   scipy
 *   Pillow
 *   \[Additional dependencies as needed\]
+
